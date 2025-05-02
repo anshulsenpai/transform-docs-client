@@ -1,7 +1,5 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-// import { useSelector } from "react-redux";
-// import { RootState } from "../redux/store";
 import Login from "../pages/Login";
 import Layout from "../layout/Layout";
 import Dashboard from "../pages/Dashboard/Dashboard";
@@ -9,51 +7,96 @@ import Logout from "../pages/Logout/Logout";
 import Document from "../pages/Document";
 import Profile from "../pages/Profile/Profile";
 import Signup from "../pages/SignUp";
+import ProtectedRoute from "./ProtectedRoute";
+import AdminDashboard from "../pages/AdminDashboard/AdminDashboard";
+import AdminDocuments from "../pages/AdminDocuments/AdminDocuments";
 
-// Protected Route Component
-// const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
-//     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
-//     return isAuthenticated ? children : <Navigate to="/login" replace />;
-// };
-
-// Create Browser Router Instance
+// Router instance
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Login />, // Redirect root to dashboard
-    },
-    {
-        path: "/dashboard",
-        element: <Layout>
-            <Dashboard />
-        </Layout>,
-    },
-    {
-        path: "/documents",
-        element: <Layout>
-            <Document />
-        </Layout>,
-    },
-    {
-        path: "/profile",
-        element: <Layout>
-            <Profile />
-        </Layout>,
+        element: <Login />,
     },
     {
         path: "/sign-up",
         element: <Signup />,
     },
     {
-        path: "*",
-        element: <div className="flex justify-center items-center h-screen w-full bg-indigo-500">
-            <h1 className="font-bold text-white">404 Page Not Found</h1>
-        </div>,
-    },
-    {
         path: "/logout",
         element: <Logout />,
-    }
+    },
+    {
+        path: "/dashboard",
+        element: (
+            <ProtectedRoute requiredRole="user">
+                <Layout>
+                    <Dashboard />
+                </Layout>
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: "/documents",
+        element: (
+            <ProtectedRoute requiredRole="user">
+                <Layout>
+                    <Document />
+                </Layout>
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: "/profile",
+        element: (
+            <ProtectedRoute>
+                <Layout>
+                    <Profile />
+                </Layout>
+            </ProtectedRoute>
+        ),
+    },
+
+    // Admin Routes
+    {
+        path: "/admin/dashboard",
+        element: (
+            <ProtectedRoute requiredRole="admin">
+                <Layout>
+                    <AdminDashboard />
+                </Layout>
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: "/admin/documents",
+        element: (
+            <ProtectedRoute requiredRole="admin">
+                <Layout>
+                    <AdminDocuments />
+                </Layout>
+            </ProtectedRoute>
+        ),
+    },
+
+    // Unauthorized Access Page
+    {
+        path: "/unauthorized",
+        element: (
+            <div className="flex justify-center items-center h-screen w-full bg-red-500">
+                <h1 className="font-bold text-white">403 Unauthorized</h1>
+            </div>
+        ),
+    },
+
+    // 404 Not Found
+    {
+        path: "*",
+        element: (
+            <div className="flex justify-center items-center h-screen w-full bg-indigo-500">
+                <h1 className="font-bold text-white">404 Page Not Found</h1>
+            </div>
+        ),
+    },
 ]);
 
 const AppRouter: React.FC = () => {

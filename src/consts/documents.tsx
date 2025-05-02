@@ -8,4 +8,6 @@ export interface IDocuments {
     createdAt: string;
     time: string;
     verified: boolean;
+    fraudStatus: string,
+    fraudReason: string,
 }

@@ -36,7 +36,11 @@ const Login: React.FC = () => {
             const { token, user } = resultAction.payload.data
             dispatch(loginSuccess({ token, user }))
             toast.success("Login Successful!");
-            navigate('/dashboard');
+            if (user.role === 'admin') {
+                navigate('/admin/dashboard');
+            } else {
+                navigate('/dashboard');
+            }
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             console.error(error);

@@ -5,7 +5,7 @@ import { RootState } from "../redux/store";
 import userIcon from "../assests/user.png";
 import profileIcon from "../assests/profile.png";
 import logoutIcon from "../assests/exit.png";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { IUser } from "../redux/authSlice";
 
 interface LayoutProps {
@@ -16,8 +16,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     const [profileExpand, setProfileExpand] = useState(false)
     const user = useSelector<RootState>(state => state.auth.user) as IUser;
 
-    const location = useLocation()
-    console.log(location.pathname);
+    // const location = useLocation();
 
     return (
         <>
@@ -37,7 +36,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             </header>
             <main className="grid grid-cols-10">
                 <aside className="hidden border w-full min-h-screen h-full col-span-2 bg-black md:block">
-                    <ul className="mt-5">
+                    {user.role === 'user' ? <ul className="mt-5">
                         <li className="text-indigo-50 py-2 px-6 text-left mb-2 mx-2 rounded-lg hover:bg-indigo-50 hover:text-black duration-300">
                             <NavLink to={"/dashboard"}>
                                 <i className="fa-solid fa-gauge mr-3"></i>
@@ -48,9 +47,22 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                                 <i className="fa-solid fa-file mr-3"></i>
                                 <span className="font-semibold ml-1">Documents</span></NavLink>
                         </li>
-                    </ul>
+                    </ul> :
+                        <ul className="mt-5">
+                            <li className="text-indigo-50 py-2 px-6 text-left mb-2 mx-2 rounded-lg hover:bg-indigo-50 hover:text-black duration-300">
+                                <NavLink to={"/admin/dashboard"}>
+                                    <i className="fa-solid fa-gauge mr-3"></i>
+                                    <span className="font-semibold">Dashboard</span></NavLink>
+                            </li>
+                            <li className="text-indigo-50 py-2 px-6 text-left mb-2 mx-2 rounded-lg hover:bg-indigo-50 hover:text-black duration-300">
+                                <NavLink to={"/admin/documents"}>
+                                    <i className="fa-solid fa-file mr-3"></i>
+                                    <span className="font-semibold ml-1">Documents</span></NavLink>
+                            </li>
+                        </ul>
+                    }
                 </aside>
-                <div className="w-full border col-span-10 py-5 p-2 md:px-4 md:col-span-8">
+                <div className="w-full col-span-10 py-5 p-2 md:px-4 md:col-span-8">
                     {children}
                 </div>
             </main>
