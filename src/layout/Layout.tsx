@@ -76,7 +76,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     {children}
                 </div>
             </main>
-            {profileExpand && <div className="toggle-container w-48 bg-white px-2 py-2 absolute right-2 top-14 shadow-lg rounded">
+            {profileExpand && <div className="toggle-container w-48 bg-white px-2 py-2 absolute right-2 top-14 shadow-lg rounded z-[99999]">
                 <div className="flex items-center gap-2 hover:bg-blue-50 px-3 py-2 rounded-lg mb-1">
                     <img className="w-3" src={profileIcon} alt="Logout Icon" />
                     <Link className="text-xs font-semibold p-0 m-0 hover:text-indigo-900" to="/profile">Profile</Link>

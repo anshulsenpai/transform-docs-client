@@ -1,22 +1,18 @@
 import { useEffect, useState } from "react";
 import { userRequest } from "../../services/api";
 import DocumentTable from "../../components/DocumentTable";
-// import { useLocation } from "react-router-dom";
-import { useDebounce } from "../../hooks/debounce";
 import toast from "react-hot-toast";
 
 function AdminDocuments() {
     // const query = useLocation().search;
     const [documents, setDocuments] = useState([]);
-    const [searchKey, setSearchKey] = useState('');
-    const debouncedSearchKey = useDebounce(searchKey, 500);
     const [loading, setLoading] = useState(false);
 
     const fetchDocuments = async () => {
         try {
             setLoading(true);
             const res = await userRequest.get(
-                `/documents/get-all-document?searchQuery=${debouncedSearchKey}`
+                `/documents/get-all-document`
             );
             setDocuments(res.data.data.documents);
         } catch (error) {
@@ -42,23 +38,13 @@ function AdminDocuments() {
 
     useEffect(() => {
         fetchDocuments();
-    }, [debouncedSearchKey]);
+    }, []);
 
     return (
         <>
             <main className="p-4 space-y-6">
                 <div className="text-sm font-semibold text-indigo-500 select-none">
                     <i className="fa-solid fa-house mr-1"></i> Dashboard {" > "} Documents
-                </div>
-
-                <div className="max-w-md">
-                    <input
-                        type="text"
-                        value={searchKey}
-                        onChange={(e) => setSearchKey(e.target.value)}
-                        placeholder="Search documents..."
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm text-sm"
-                    />
                 </div>
 
                 <DocumentTable
