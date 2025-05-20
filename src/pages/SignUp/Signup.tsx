@@ -1,16 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import Input from '../../components/Input';
-import { useDispatch } from 'react-redux';
-import { unwrapResult } from '@reduxjs/toolkit';
-import { AppDispatch } from '../../redux/store';
 import { publicRequest } from '../../services/api';
 
 function Signup() {
-    const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -44,6 +41,7 @@ function Signup() {
         setLoading(true);
         try {
             // Remove confirmPassword before sending to API
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { confirmPassword, ...userData } = values;
             const response = await publicRequest.post('/auth/register', userData);
             console.log(response);

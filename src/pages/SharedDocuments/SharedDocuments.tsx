@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import { userRequest } from "../../services/api";
 import DocumentTable from "../../components/DocumentTable";
-import { useLocation } from "react-router-dom";
 
-function Document() {
-    const query = useLocation().search;
+function SharedDocument() {
     const [documents, setDocuments] = useState([]);
 
     const fetchRecentDocuments = async () => {
         try {
-            const { documents } = (await userRequest.get(`/documents/get-document${query}`)).data.data;
+            const { documents } = (await userRequest.get(`/documents/get-shared-document`)).data.data;
             setDocuments(documents);
         } catch (error) {
             console.error(error);
@@ -34,4 +32,4 @@ function Document() {
     )
 }
 
-export default Document
+export default SharedDocument;

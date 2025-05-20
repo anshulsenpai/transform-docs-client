@@ -8,7 +8,6 @@ import DocumentTable from "../../components/DocumentTable";
 const Dashboard: React.FC = () => {
     const navigate = useNavigate();
     const [documents, setDocuments] = useState([]);
-    const [searchKey, setSearchKey] = useState('');
 
     const fetchRecentDocuments = async () => {
         try {
@@ -69,9 +68,8 @@ const Dashboard: React.FC = () => {
                 <span>Recently Added</span>
             </div>
             <main>
-                <DocumentTable documents={documents} searchKey={searchKey} setSearchKey={setSearchKey} />
+                <DocumentTable documents={documents} />
             </main>
-
         </>
     );
 };

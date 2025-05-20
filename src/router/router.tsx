@@ -10,6 +10,8 @@ import Signup from "../pages/SignUp";
 import ProtectedRoute from "./ProtectedRoute";
 import AdminDashboard from "../pages/AdminDashboard/AdminDashboard";
 import AdminDocuments from "../pages/AdminDocuments/AdminDocuments";
+import SharedDocument from "../pages/SharedDocuments/SharedDocuments";
+import AdminSharedDocuments from "../pages/AdminSharedDocuments/AdminSharedDocuments";
 
 // Router instance
 const router = createBrowserRouter([
@@ -31,6 +33,16 @@ const router = createBrowserRouter([
             <ProtectedRoute requiredRole="user">
                 <Layout>
                     <Dashboard />
+                </Layout>
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: "/shared-docs",
+        element: (
+            <ProtectedRoute requiredRole="user">
+                <Layout>
+                    <SharedDocument />
                 </Layout>
             </ProtectedRoute>
         ),
@@ -73,6 +85,16 @@ const router = createBrowserRouter([
             <ProtectedRoute requiredRole="admin">
                 <Layout>
                     <AdminDocuments />
+                </Layout>
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: "/admin/shared-documents",
+        element: (
+            <ProtectedRoute requiredRole="admin">
+                <Layout>
+                    <AdminSharedDocuments />
                 </Layout>
             </ProtectedRoute>
         ),

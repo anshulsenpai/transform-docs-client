@@ -47,6 +47,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                                 <i className="fa-solid fa-file mr-3"></i>
                                 <span className="font-semibold ml-1">Documents</span></NavLink>
                         </li>
+                        <li className="text-indigo-50 py-2 px-6 text-left mb-2 mx-2 rounded-lg hover:bg-indigo-50 hover:text-black duration-300">
+                            <NavLink to={"/shared-docs"}>
+                                <i className="fa-solid fa-share-nodes mr-3"></i>
+                                <span className="font-semibold ml-1">Shared Docs</span></NavLink>
+                        </li>
                     </ul> :
                         <ul className="mt-5">
                             <li className="text-indigo-50 py-2 px-6 text-left mb-2 mx-2 rounded-lg hover:bg-indigo-50 hover:text-black duration-300">
@@ -58,6 +63,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                                 <NavLink to={"/admin/documents"}>
                                     <i className="fa-solid fa-file mr-3"></i>
                                     <span className="font-semibold ml-1">Documents</span></NavLink>
+                            </li>
+                            <li className="text-indigo-50 py-2 px-6 text-left mb-2 mx-2 rounded-lg hover:bg-indigo-50 hover:text-black duration-300">
+                                <NavLink to={"/admin/shared-documents"}>
+                                    <i className="fa-solid fa-share-nodes mr-3"></i>
+                                    <span className="font-semibold ml-1">Shared Documents</span></NavLink>
                             </li>
                         </ul>
                     }
